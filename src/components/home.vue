@@ -258,10 +258,16 @@ export default {
             //元素距离顶部的高度
             let offsetTop = anchor.offsetTop - headHeight;
             //定位要滑动的距离
-            let distance = Math.abs(scrollTop - offsetTop) ;
-            //每步滚动的距离
+            let distance = scrollTop - offsetTop ;
+            //记录当前滚动次数
             let step = 20;
+            //总滚动次数
+            let totalStep = step;
+            //每步滚动的距离
             let stepDistance = distance/step; 
+            //获取绝对值
+            distance = Math.abs(distance);
+            //滚动方法
             (function gotoAnchor(){
                 //如果还有需要滚动的距离
                 if(distance > 0){
@@ -269,9 +275,10 @@ export default {
                         //最后一步判断是否是否需要直接跳到锚点位置
                         window.scrollTo(0 , offsetTop);
                     }else{
-                        distance -= stepDistance;
+                        distance -= Math.abs(stepDistance);
                         step --;
-                        window.scrollTo(0 , distance);
+                        window.scrollTo(0 , scrollTop - stepDistance*(totalStep - step));
+                        //每10ms滚动一次
                         setTimeout(gotoAnchor,10);
                     }
                 }
