@@ -1,22 +1,26 @@
 <template>
   <div id="outContainer">
     <el-container>
-      <el-header>
+      <el-header id="header">
         <div class="head-logo">
-          <img src='./assets/logo.png' class="logo"/>
+          <img src='./assets/img/logo.png' class="logo"/>
         </div>
         <div class="head-menu" >
-          <el-dropdown trigger="click" v-for="menu in menuList" :value="menu.menuId" :key="menu.menuId">
-            <span tabIndex="-1" class="el-dropdown-link" :menuId="menu.menuId">
-              <router-link v-if="menu.subMenuList && menu.subMenuList.length==0" :to="{path: menu.route}">{{menu.menuName}}</router-link>
-              <span v-else>{{menu.menuName}}</span>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="subMenu in menu.subMenuList" :value="subMenu.menuId" :key="subMenu.menuId">
-                <span><router-link :to="{path: subMenu.route}">{{subMenu.menuName}}</router-link></span>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <span class="menu" v-for="menu in menuList" :value="menu.menuId" :key="menu.menuId">
+            <!-- 有子菜单的菜单 -->
+            <el-dropdown trigger="click"  v-if="menu.subMenuList && menu.subMenuList.length>0">
+              <span tabIndex="-1" class="el-dropdown-link" :menuId="menu.menuId">
+                <span>{{menu.menuName}}</span>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item v-for="subMenu in menu.subMenuList" :value="subMenu.menuId" :key="subMenu.menuId">
+                  <span><router-link :to="{path: subMenu.route}">{{subMenu.menuName}}</router-link></span>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+            <!-- 没有子菜单的菜单 -->
+            <router-link v-else :to="{path: menu.route}">{{menu.menuName}}</router-link>
+          </span>
         </div>
         <div class="head-login">
           <el-button type="primary" @click="gotoLogin">登陆</el-button>
@@ -29,7 +33,7 @@
       <el-main>
         <router-view></router-view>
       </el-main>
-      <el-footer>
+      <el-footer id="footer" style="height: auto;">
           <div class="container">
               <ul>
                   <li>产品</li>
@@ -94,11 +98,18 @@ export default {
 </script>
 
 <style>
-  body { 
+  html{
+    height: 100%;
+  }
+  body {
     margin: 0;
     padding: 0;
     font-family: 宋体;
     font-size: 16px;
+  }
+  
+  input,button,a,div,span {
+      outline:0 none !important;
   }
   body section {
     display: block !important;
@@ -147,6 +158,7 @@ export default {
   .el-dropdown-link {
     display: inline-block
   }
+  
   .el-dropdown>span:focus {
     border-radius: 5px;
     background-color: #333;
@@ -155,10 +167,14 @@ export default {
   .el-dropdown-menu__item {
     padding: 0;
   }
-  .el-dropdown>span>a, .el-dropdown>span>span {
-    padding: 7px 20px;
+  .menu {
+    margin: 0 5px;
+  }
+  .menu>a, .menu>.el-dropdown>span>span {
+    padding: 7px 10px;
     border-radius: 5px;
     text-decoration: none;
+    font-weight: bold;
   }
   .router-link-exact-active {
     background-color: #333;
@@ -204,10 +220,13 @@ export default {
     background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    padding: 20px;
+    padding: 20px 5%;
     margin-top: 50px;
   }
 
+  .el-footer {
+    background: #231b1b;
+  }
   .el-footer .container {
     margin: 0 auto;
     text-align: left;
@@ -220,11 +239,12 @@ export default {
   .el-footer .container ul li {
     list-style: none;
     height: 30px;
+    color: #f5d8d8;
   }
   .el-footer .container ul li a {
     text-decoration: none;
     font-size: 14px;
-    color: #888;
+    color: #a97b7b;
   }
   .el-footer .container ul li a:hover{
     text-decoration: underline;
@@ -232,10 +252,10 @@ export default {
   .copyright {
     text-align: center;
     font-size: 12px;
-    color: #000;
+    color: #fff;
   }
   .copyright a {
-    color: #000;
+    color: #fff;
     text-decoration: none;
   }
   .copyright a:hover{
