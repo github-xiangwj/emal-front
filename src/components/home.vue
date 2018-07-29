@@ -258,39 +258,21 @@ export default {
             //元素距离顶部的高度
             let offsetTop = anchor.offsetTop - headHeight;
             //定位要滑动的距离
-            let distance = scrollTop - offsetTop ;
-            let step = distance/20; //每步的距离
+            let distance = Math.abs(scrollTop - offsetTop) ;
+            //每步滚动的距离
+            let step = 20;
+            let stepDistance = distance/step; 
             (function gotoAnchor(){
-                //滚动到元素下方时
+                //如果还有需要滚动的距离
                 if(distance > 0){
-                    if(distance < step){
+                    if(step == 1 && distance < offsetTop){
+                        //最后一步判断是否是否需要直接跳到锚点位置
                         window.scrollTo(0 , offsetTop);
                     }else{
-                        distance -= step;
-                        //如果滚动之后距离小于offsetTop，则直接滚动到offsetTop
-                        if(distance < offsetTop){
-                            window.scrollTo(0 , offsetTop);
-                        }else{
-                            window.scrollTo(0 , distance);
-                            setTimeout(gotoAnchor,10);
-                        }
-                    }
-                }
-                //滚动到元素上方时
-                else{
-                    distance = Math.abs(distance);
-                    step = Math.abs(step);
-                    if(distance < step){
-                        window.scrollTo(0 , offsetTop);
-                    }else{
-                        distance -= step;
-                        //如果滚动之后距离小于offsetTop，则直接滚动到offsetTop
-                        if(distance < offsetTop){
-                            window.scrollTo(0 , offsetTop);
-                        }else{
-                            window.scrollTo(0 , distance);
-                            setTimeout(gotoAnchor,10);
-                        }
+                        distance -= stepDistance;
+                        step --;
+                        window.scrollTo(0 , distance);
+                        setTimeout(gotoAnchor,10);
                     }
                 }
 
