@@ -32,7 +32,7 @@
       </el-header>
       <el-main>
         <router-view></router-view>
-      </el-main> 
+      </el-main>
       <el-footer id="footer" style="height: auto;">
           <div class="container">
               <ul>
