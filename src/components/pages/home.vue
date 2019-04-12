@@ -195,10 +195,10 @@
 </template>
 
 <script>
-import Banner from './templates/Banner.vue'
-import a from '../assets/img/banner1.jpg'
-import b from '../assets/img/banner2.jpg'
-import c from '../assets/img/banner3.jpg'
+import Banner from '../templates/Banner.vue'
+import a from '../../assets/img/banner1.jpg'
+import b from '../../assets/img/banner2.jpg'
+import c from '../../assets/img/banner3.jpg'
 export default {
     name: 'Home',
     data() {
@@ -322,7 +322,7 @@ export default {
 .section .row .content-items {
     background: #fff;
     width: 32%;
-    background-image: url(../assets/img/01.jpg);
+    background-image: url(../../assets/img/01.jpg);
     background-repeat: no-repeat;
     background-size:100% 100%;
     -moz-background-size:100% 100%;
@@ -385,7 +385,7 @@ export default {
     cursor: pointer;
     width: 30px;
     height: 30px;
-    background-image: url(../assets/img/toolbars.png);
+    background-image: url(../../assets/img/toolbars.png);
     background-repeat: no-repeat;
 }
 .right-nav .item:hover, .goTop .item:hover{
